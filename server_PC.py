@@ -77,4 +77,6 @@ while True:
         console.print("[red]Interrupted. Closing...[/red]")
         break
 
+    #test 1 2
+
 server.close()
