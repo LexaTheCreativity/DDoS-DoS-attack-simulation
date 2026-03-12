@@ -11,14 +11,15 @@ console = Console()
 
 table = Table(title="Incoming Packets", border_style="white")
 table.add_column("ID", style="dim", width=4)
+table.add_column("Client IP", style="magenta", width=20)
 table.add_column("Content", style="white", width=25)
 table.add_column("Timestamp Sent", style="yellow", width=26)
 table.add_column("Timestamp Received", style="green", width=26)
 table.add_column("Packet Size (bytes)", style="green", justify="center")
-table.add_column("Latency (ms)", style="purple", justify="right", width=13)
+table.add_column("Latency (ms)", justify="right", width=13)
 
 serverPort = 5002
-serverIP = '10.245.30.55'
+serverIP = '10.245.30.27'
 bufferSize = 10000
 
 server = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -43,11 +44,20 @@ while True:
 
         #get the timestamp sent from the client 
         client_sent = datetime.fromisoformat(message['sent_at'])
-        latency_ms = (server_received_at - client_sent).total_seconds() * 1000
+        latency_ms = abs((server_received_at - client_sent).total_seconds() * 1000)
+
+
+        if latency_ms > 200:
+            latency_color = "red"
+        elif latency_ms > 150:
+            latency_color = "yellow"
+        else:
+            latency_color = "green"
 
         #add rows to the table
         table.add_row(
             str(packet_id),
+            f"{address[0]}:{address[1]}",
             message["content"],
             message["sent_at"],
             server_received_at.strftime("%Y-%m-%d %H:%M:%S.%f")[:-3],
