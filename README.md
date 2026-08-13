@@ -1,6 +1,10 @@
 # DDoS-DoS-attack-simulation
 Project in 5G and IoT advanced course. Building a simulation of an DDoS/DoS attack with two raspberry pi using a client server architecture.
 
+## Getting the code:
+- We have 3 seperate branches, 1 for the server and the other for each raspberry client
+- Switch to the other bracnhes to see the code :)
+
 ## Create a New Feature or Make Other Changes:
 
 - Create a new branch
